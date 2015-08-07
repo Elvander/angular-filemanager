@@ -32,7 +32,7 @@ gulp.task('cache-templates', function () {
 });
 
 gulp.task('concat-uglify-js', function() {
-  return gulp.src(src + 'js/*.js')
+  return gulp.src([src + 'js/*.js', '!'+ src + 'js/config.js'])
     .pipe(concat('angular-filemanager.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dst))

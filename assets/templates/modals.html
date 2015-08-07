@@ -22,6 +22,30 @@
   </div>
 </div>
 
+<div class="modal animated fadeIn" id="preview">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form data-ng-submit="select(temp)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">{{"close" | translate}}</span>
+        </button>
+        <h4 class="modal-title">{{"preview" | translate}}: {{temp.model.name}}</h4>
+      </div>
+      <div class="modal-body">        
+        <img ng-src="{{temp.preview()}}" style="max-width: 100%">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" autofocus="autofocus">{{"cancel" | translate}}</button>
+        <button type="submit" class="btn btn-sm btn-default" data-ng-show="config.allowedActions.select && !temp.isFolder()">{{"select" | translate}}</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal animated fadeIn" id="rename">
   <div class="modal-dialog">
     <div class="modal-content">

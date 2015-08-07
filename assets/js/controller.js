@@ -40,7 +40,9 @@
                 return $scope.fileNavigator.folderClick(item);
             };
             if (item.isImage()) {
-                return item.preview();
+                $scope.touch(item);
+                $('#preview').modal('show');
+                return;
             }
             if (item.isEditable()) {
                 item.getContent();
@@ -134,6 +136,28 @@
                 var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
                 $scope.temp.error = errorMsg;
             });
+        };
+
+        $scope.select = function(item) {
+            if(window.parent.tinymce && window.parent.tinymce.activeEditor.windowManager){
+                var field_name = getParameter('field_name');
+                window.parent.document.getElementById(field_name).value = item.model.webPath;
+                window.parent.tinymce.activeEditor.windowManager.close();
+            } 
+            if(window.opener) {
+                window.opener.selectItem(item.model.webPath);
+                window.close();
+            }
+        };
+
+        var getParameter = function( param ) {
+            if(!param) param = '';
+            var regex = /[?&]([^=#]+)=([^&#]*)/g, url = window.location.href, params = {},match;
+            while(match = regex.exec(url)) {
+                if(match[2]!=='undefined')
+                params[match[1]] = match[2];
+            }
+            return (params[param] || '');
         };
 
         $scope.getQueryParam = function(param) {

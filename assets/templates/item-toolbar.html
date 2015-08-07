@@ -1,4 +1,7 @@
 <div data-ng-show="!item.inprocess">
+    <button class="btn btn-sm btn-default" data-ng-show="config.allowedActions.select && !item.isFolder()" data-ng-click="select(item)" title="{{'select' | translate}}">
+        <i class="glyphicon glyphicon-check"></i>
+    </button>
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" data-ng-show="config.allowedActions.rename" data-ng-click="touch(item)" title="{{'rename' | translate}}">
         <i class="glyphicon glyphicon-edit"></i>
     </button>
@@ -20,7 +23,7 @@
     <button class="btn btn-sm btn-default" data-ng-show="config.allowedActions.download && !item.isFolder()" data-ng-click="item.download()" title="{{'download' | translate}}">
         <i class="glyphicon glyphicon-cloud-download"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-ng-show="config.allowedActions.preview && item.isImage()" data-ng-click="item.preview()" title="{{'view_item' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#preview" data-ng-show="config.allowedActions.preview && item.isImage()" data-ng-click="touch(item)" title="{{'view_item' | translate}}">
         <i class="glyphicon glyphicon-picture"></i>
     </button>
     <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-show="config.allowedActions.remove" data-ng-click="touch(item)" title="{{'remove' | translate}}">

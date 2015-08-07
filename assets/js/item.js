@@ -12,6 +12,7 @@
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
                 recursive: false,
+                webPath: model && model.webPath || '',
                 sizeKb: function() {
                     return Math.round(this.size / 1024, 1);
                 },
@@ -174,22 +175,21 @@
             });
         };
 
-        Item.prototype.download = function(preview) {
+        Item.prototype.download = function() {
+            var self = this;
+            if (self.model.type !== 'dir') {
+                window.open(self.preview(), '_blank', '');
+            }
+        };
+
+        Item.prototype.preview = function(preview) {
             var self = this;
             var data = {
                 mode: "download",
                 preview: preview,
                 path: self.model.fullPath()
             };
-            var url = [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
-            if (self.model.type !== 'dir') {
-                window.open(url, '_blank', '');
-            }
-        };
-
-        Item.prototype.preview = function() {
-            var self = this;
-            return self.download(true);
+            return [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
         };
 
         Item.prototype.getContent = function(success, error) {
